@@ -5,28 +5,26 @@ var setPos = function(newX, newY)
 	this.x = newX;
 	this.y = newY;
 	}
-var getPosX = function()
-	{
-	return this.x;
-	}
-var getPosY = function()
-	{
-	return this.y;
-	}
 var Player = function(name, startX, startY)
 	{
-	private this.name = name;
-	private this.startX = startX;
-	private this.x = startX;
-	private this.startY = startY;
-	private this.y = startY;
-	public this.setPos = setPos;
+	this.name = name;
+	this.startX = startX;
+	this.x = startX;
+	this.startY = startY;
+	this.y = startY;
+	this.setPos = setPos;
 	}
 var newPlayer = function(name, startX, startY)
 	{
-	public this[name] = new Player(name, startX, startY);
+	this[name] = new Player(name, startX, startY);
+	this.players[this.players.length] = name;
+	}
+var getPlayers = function()
+	{
+	return this.players;
 	}
 var Players = function()
 	{
-	public this.newPlayer = newPlayer;
+	this.newPlayer = newPlayer;
+	this.players = [];
 	}
