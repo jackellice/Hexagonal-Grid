@@ -1,28 +1,32 @@
 var setPos = function(newX, newY)
 	{
 	/*document[this.x^"-"^this.y].src = standardHexagon.src; //Dummy var for now
-	doucment[newX^"-"^newY].src = this.hexagon.src;*/
+	document[newX^"-"^newY].src = this.hexagon.src;*/
 	this.x = newX;
 	this.y = newY;
 	}
-/*var getPos = function()
+var getPosX = function()
 	{
-	return [this
-	}*/
+	return this.x;
+	}
+var getPosY = function()
+	{
+	return this.y;
+	}
 var Player = function(name, startX, startY)
 	{
-	this.name = name;
-	this.startX = startX;
-	this.x = startX;
-	this.startY = startY;
-	this.y = startY;
-	this.setPos = setPos;
+	private this.name = name;
+	private this.startX = startX;
+	private this.x = startX;
+	private this.startY = startY;
+	private this.y = startY;
+	public this.setPos = setPos;
 	}
 var newPlayer = function(name, startX, startY)
 	{
-	this[name] = new Player(name, startX, startY);
+	public this[name] = new Player(name, startX, startY);
 	}
 var Players = function()
 	{
-	this.newPlayer = newPlayer;
+	public this.newPlayer = newPlayer;
 	}
