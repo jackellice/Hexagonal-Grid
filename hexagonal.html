@@ -1,35 +1,38 @@
 <!DOCTYPE HTML>
 <html>
-<body onkeydown="keyEvent(event)">
+
+	<body onkeydown="keyEvent(event)">
 <img id="1" />
 <canvas id="myCanvas" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 <script type="text/javascript">
 var c=document.getElementById("myCanvas");
 var ctx=c.getContext("2d");
-var img=new Image();
-img.src="img/hexagonal.png";
-imgA= function(){return img;}
-var hexagon = function(x,y){
-var Ap=x;
-var Bp=Ap-60;
-var Cp=Bp-30;
-var Dp=Ap+30;
-var ap=y
-var bp=ap+52
-var cp=bp+52
-ctx.beginPath();
-ctx.moveTo(Ap,ap);
-ctx.lineTo(Bp,ap);
-ctx.lineTo(Cp,bp);
-ctx.lineTo(Bp,cp);
-ctx.lineTo(Ap,cp);
-ctx.lineTo(Dp,bp);
-ctx.lineTo(Ap,ap);
-ctx.strokeStyle="blue";
-ctx.stroke();
-};
-
+var img=new Image(); img.src="img/hexagonal.png";
+imgA= function()
+	{
+	return img;
+	}
+var hexagon = function(x,y)
+	{
+	var Ap=x;
+	var Bp=Ap-60;
+	var Cp=Bp-30;
+	var Dp=Ap+30;
+	var ap=y
+	var bp=ap+52
+	var cp=bp+52
+	ctx.beginPath();
+	ctx.moveTo(Ap,ap);
+	ctx.lineTo(Bp,ap);
+	ctx.lineTo(Cp,bp);
+	ctx.lineTo(Bp,cp);
+	ctx.lineTo(Ap,cp);
+	ctx.lineTo(Dp,bp);
+	ctx.lineTo(Ap,ap);
+	ctx.strokeStyle="blue";
+	ctx.stroke();
+	}
 img.onload = function()
 	{
 	for(i=0;i<10;i++)
@@ -215,10 +218,10 @@ turn:function(x,y,z)
 			{
 			this.moveNz();
 			}
-		if(crashPlanet(this.xCoord,this.yCoord,Planet.xCoord,Planet.yCoord)===true)
-			{
-			console.log("You've Crashed! Game over");
-			}
+		}
+	if(crashPlanet(this.xCoord,this.yCoord,Planet.xCoord,Planet.yCoord)===true)
+		{
+		console.log("You've Crashed! Game over");
 		}
 	}
 };
@@ -291,9 +294,9 @@ function keyEvent(event)
 			result = Up();  
 			break;
 		case 69:
-			result = upLeft();
+			upLeft();
 			break;
-		case 67:
+		case 68:
 			result = downRight();
 			break;
 		case 70:
@@ -302,7 +305,6 @@ function keyEvent(event)
 		case 83:
 			result = downLeft();
 			break;
-		case 68:
 			result = takeTurn();
 			break;
 		}
