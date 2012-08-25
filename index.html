@@ -3,11 +3,14 @@
 	<head>
 		<title>Hexagonal Grid</title>
 		<script src="./javascript/playerClass.js" language="JavaScript"></script>
+		<script src="./javascript/planetClass.js" language="JavaScript"></script>
 		<script language="JavaScript">
 			players = new Players();
-			players.newPlayer("Banane9", 1, 1);
-			players.Banane9.setPos(2, 3);
-			console.log(players.players);
+			players.newPlayer("Banane9", 1, 1, "./img/playerRed.png");
+			mars = new Planet(5*90, 6*52, "./img/planet.png");
+			mars.updateGravityFields();
+			console.log(mars.coordinate);
+			console.log(mars.gravityFields);
 		</script>
 	</head>
 	<body>
