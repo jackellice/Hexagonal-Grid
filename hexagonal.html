@@ -1,11 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <body onkeydown="keyEvent(event)">
-<img id="1" />
-<canvas id="myCanvas" width="1000" height="1110" style="border:1px solid #d3d3d3;">
+<canvas id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 <script type="text/javascript">
-var c=document.getElementById("myCanvas");
+var c=document.getElementById("gameBoard");
 var ctx=c.getContext("2d");
 var img=new Image();
 img.src="img/hexagonal.png";
@@ -49,6 +48,7 @@ img.onload = function()
 			}
 		}
 	}
+
 var map = function()
 	{
 	AB = 100
@@ -71,8 +71,6 @@ var map = function()
 		}
 	}
 Player1={
-xCoord:5,
-yCoord:5,
 xy:[5,5],
 up:-104,
 down: 104,
@@ -82,84 +80,97 @@ Nz: -52,
 Z : 52,
 moveDown:function()
 	{
-	if(this.yCoord+this.down >1000)
+	if(this.xy[1]+this.down >1000)
+
 		{
-		console.log("This is an illegal move")
+		console.log("Not gonna happen!");
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104);
-		ctx.drawImage(Player1.token,this.xCoord,this.yCoord+this.down,120,104);
-		this.yCoord+=104;
+		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104);
+		ctx.drawImage(Player1.token,this.xy[0],this.xy[1]+this.down,120,104);
+		this.xy[1]+=104;
+
 		}
 	},
 moveRight:function()
 	{
-	if(this.yCoord+this.Z >1000||this.xCoord+90>900)
+	if(this.xy[1]+this.Z >1000||this.xy[0]+90>900)
+
 		{
-		console.log("This is an illegal move")
+		console.log("Not gonna happen!");
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
-		ctx.drawImage(Player1.token,this.xCoord+90,this.yCoord+52,120,104);
-		this.xCoord+=90
-		this.yCoord+=52;
+		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(Player1.token,this.xy[0]+90,this.xy[1]+52,120,104);
+		this.xy[0]+=90
+		this.xy[1]+=52;
+
 		}
 	},
 moveZ:function()
 	{
-	if(this.yCoord-52 <5|this.xCoord+this.down >900)
+	if(this.xy[1]-52 <5|this.xy[0]+this.down >900)
+
 		{
-		console.log("This is an illegal move")
+		console.log("Not gonna happen!");
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
-		ctx.drawImage(Player1.token,this.xCoord+90,this.yCoord-52,120,104);
-		this.xCoord+=90
-		this.yCoord-=52;
+		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(Player1.token,this.xy[0]+90,this.xy[1]-52,120,104);
+		this.xy[0]+=90
+		this.xy[1]-=52;
+
 		}
 	},
 moveUp:function()
 	{
-	if(this.yCoord-104<5)
+
+	if(this.xy[1]-104<5)
 		{
-		console.log("This is an illegal move")
+		console.log("Not gonna happen!");
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
-		ctx.drawImage(Player1.token,this.xCoord,this.yCoord-104,120,104);
-		this.yCoord-=104;
+		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(Player1.token,this.xy[0],this.xy[1]-104,120,104);
+		this.xy[1]-=104;
+
 		}
 	},
 moveLeft:function()
 	{
-	if(this.yCoord-52 <5|this.xCoord-90 <5)
+
+	if(this.xy[1]-52 <5|this.xy[0]-90 <5)
+
 		{
-		console.log("This is an illegal move")
+		console.log("Not gonna happen!");
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
-		ctx.drawImage(Player1.token,this.xCoord-90,this.yCoord-52,120,104);
-		this.xCoord-=90
-		this.yCoord-=52;
+		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(Player1.token,this.xy[0]-90,this.xy[1]-52,120,104);
+		this.xy[0]-=90
+		this.xy[1]-=52;
+
 		}
 	},
 moveNz:function()
 	{
-	if(this.yCoord+52 <1000||this.xCoord-90 <5)
+	if(this.xy[1]+52 >1000||this.xy[0]-90 <5)
+
 		{
-		console.log("This is an illegal move")
+		console.log("Not gonna happen!");
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
-		ctx.drawImage(Player1.token,this.xCoord-90,this.yCoord+52,120,104);
-		this.xCoord-=90
-		this.yCoord+=52;
+		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(Player1.token,this.xy[0]-90,this.xy[1]+52,120,104);
+		this.xy[0]-=90
+		this.xy[1]+=52;
+
 		}
 	},
 momentum : [0,0,0],
@@ -215,7 +226,8 @@ turn:function(x,y,z)
 			{
 			this.moveNz();
 			}
-		if(crashPlanet(this.xCoord,this.yCoord,Planet.xCoord,Planet.yCoord)===true)
+
+		if(crashPlanet(this.xy[0],this.xy[1],Planet.xCoord,Planet.yCoord)===true)
 			{
 			console.log("You've Crashed! Game over");
 			}
@@ -251,59 +263,33 @@ var crashPlanet = function(x,y,z,q)
 		return false
 		}
 	}
-var Up=function()
-	{
-	Player1.turn(0,-1,0);
-	}
-var upLeft=function()
-	{
-	Player1.turn(0,0,-1);
-	}
-var downRight=function()
-	{
-	Player1.turn(0,0,1);
-	}
-var Down=function()
-	{
-	Player1.turn(0,1,0);
-	}
-var upRight=function()
-	{
-	Player1.turn(1,0,0);
-	}
-var downLeft=function()
-	{
-	Player1.turn(-1,0,0);
-	}
-var takeTurn = function()
-	{
-	Player1.turn(0,0,0)
-	}
+
+
 function keyEvent(event)
 	{
 	var key = event.keyCode;
 	switch (key)
 		{
 		case 88:
-			result = Down();
+			result = Player1.turn(0,1,0);
 			break;
 		case 82:
-			result = Up();  
+			result = Player1.turn(0,-1,0);  
 			break;
 		case 69:
-			result = upLeft();
+			result = Player1.turn(0,0,-1);
 			break;
 		case 67:
-			result = downRight();
+			result = Player1.turn(0,0,1);
 			break;
 		case 70:
-			result = upRight();
+			result = Player1.turn(1,0,0);
 			break;
 		case 83:
-			result = downLeft();
+			result = Player1.turn(-1,0,0);
 			break;
 		case 68:
-			result = takeTurn();
+			result = Player1.turn(0,0,0);
 			break;
 		}
 	}
