@@ -5,16 +5,17 @@ var setPos = function(newX, newY)
 	this.x = newX;
 	this.y = newY;
 	}
-var Player = function(name, startX, startY)
+var Player = function(name, startX, startY, src)
 	{
 	this.name = name;
 	this.startX = startX;
 	this.x = startX;
 	this.startY = startY;
 	this.y = startY;
+	this.token = new Image(); this.token.src = src;
 	this.setPos = setPos;
 	}
-var newPlayer = function(name, startX, startY)
+var newPlayer = function(name, startX, startY, src)
 	{
 	this[name] = new Player(name, startX, startY);
 	this.players[this.players.length] = name;
