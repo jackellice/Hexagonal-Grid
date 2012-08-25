@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<img id="1" />
+<script type="text/javascript">
+</script>
+<canvas id="myCanvas" width="1200" height="600" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<script type="text/javascript">
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+var test=new Image();
+test.src="hexagonal.png";
+ctx.drawImage(test.src,10,10);
+var hexagon = function(x,y){
+var Ap=x;
+var Bp=Ap-60;
+var Cp=Bp-30;
+var Dp=Ap+30;
+var ap=y
+var bp=ap+52
+var cp=bp+52
+ctx.beginPath();
+ctx.moveTo(Ap,ap);
+ctx.lineTo(Bp,ap);
+ctx.lineTo(Cp,bp);
+ctx.lineTo(Bp,cp);
+ctx.lineTo(Ap,cp);
+ctx.lineTo(Dp,bp);
+ctx.lineTo(Ap,ap);
+ctx.strokeStyle="blue";
+ctx.stroke();};
+var map = function(){
+AB = 100
+AC = 15
+for(i=0;i<10;i++){for(y=0;y<5;y++){
+c=0;
+if(i%2!==0){c = 90;}else{c=0;}
+hexagon(AB+y*180+c,AC+i*52);}}
+}
+map();
+</script> 
+<img id="test" src="hexagonal.png" />
+</body>
+</html>
