@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<body onkeydown="keyEvent(event)">
+<img id="1" />
+<canvas id="myCanvas" width="1000" height="1110" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<script type="text/javascript">
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+var img=new Image();
+img.src="img/hexagonal.png";
+imgA= function(){return img;}
+var hexagon = function(x,y){
+var Ap=x;
+var Bp=Ap-60;
+var Cp=Bp-30;
+var Dp=Ap+30;
+var ap=y
+var bp=ap+52
+var cp=bp+52
+ctx.beginPath();
+ctx.moveTo(Ap,ap);
+ctx.lineTo(Bp,ap);
+ctx.lineTo(Cp,bp);
+ctx.lineTo(Bp,cp);
+ctx.lineTo(Ap,cp);
+ctx.lineTo(Dp,bp);
+ctx.lineTo(Ap,ap);
+ctx.strokeStyle="blue";
+ctx.stroke();
+};
+
+img.onload = function(){
+for(i=0;i<10;i++){for(y=0;y<10;y++){
+c=0;
+if(i%2===0){c=0}else{c=52}
+ctx.drawImage(imgA(),90*i+5,5+104*y+c,120,104);}}
+};
+var map = function(){
+AB = 100
+AC = 15
+for(i=0;i<10;i++){for(y=0;y<5;y++){
+c=0;
+if(i%2!==0){c = 90;}else{c=0;}
+hexagon(AB+y*180+c,AC+i*52);}}
+}
+Player1={
+xCoord:5,
+yCoord:5,
+xy:[5,5],
+up:-104,
+down: 104,
+left: -120,
+right: 120,
+Nz: -52,
+Z : 52,
+moveDown:function(){
+if(this.yCoord+this.down >1000){console.log("This is an illegal move")} else{
+ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104);
+ctx.drawImage(Player1.token,this.xCoord,this.yCoord+this.down,120,104);
+this.yCoord+=104;}
+},
+moveRight:function(){
+if(this.yCoord+this.Z >1000||this.xCoord+90>900){console.log("This is an illegal move")} else{
+ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
+ctx.drawImage(Player1.token,this.xCoord+90,this.yCoord+52,120,104);
+this.xCoord+=90
+this.yCoord+=52;}
+},
+moveZ:function(){
+if(this.yCoord-52 <5|this.xCoord+this.down >900){console.log("This is an illegal move")} else{
+ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
+ctx.drawImage(Player1.token,this.xCoord+90,this.yCoord-52,120,104);
+this.xCoord+=90
+this.yCoord-=52;
+};
+},
+moveUp:function(){
+if(this.yCoord-104<5){console.log("This is an illegal move")} else{
+ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
+ctx.drawImage(Player1.token,this.xCoord,this.yCoord-104,120,104);
+this.yCoord-=104;}
+},
+moveLeft:function(){
+if(this.yCoord-52 <5|this.xCoord-90 <5){console.log("This is an illegal move")} else{
+ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
+ctx.drawImage(Player1.token,this.xCoord-90,this.yCoord-52,120,104);
+this.xCoord-=90
+this.yCoord-=52;
+};
+},
+moveNz:function(){
+if(this.yCoord+52 <1000||this.xCoord-90 <5){console.log("This is an illegal move")} else{
+ctx.drawImage(imgA(),this.xCoord,this.yCoord,120,104)
+ctx.drawImage(Player1.token,this.xCoord-90,this.yCoord+52,120,104);
+this.xCoord-=90
+this.yCoord+=52;
+};
+},
+momentum : [0,0,0],
+turn : function(x,y,z){
+this.momentum[0]+=x;
+this.momentum[1]+=y;
+this.momentum[2]+=z;
+switch(Player1.xy){
+case Planet.txy:
+result = console.log("testing for now");
+break;
+}
+if(this.momentum[1]>0){
+for(i=0;i<this.momentum[1];i++)
+{this.moveDown();}}else{for(i=0;i<Math.abs(this.momentum[1]);i++){this.moveUp();}
+}
+if(this.momentum[2]>0){
+for(i=0;i<this.momentum[2];i++)
+{this.moveRight();}}else{for(i=0;i<Math.abs(this.momentum[2]);i++){this.moveLeft();}
+}
+if(this.momentum[0]>0){
+for(i=0;i<this.momentum[0];i++)
+{this.moveZ();}}else{for(i=0;i<Math.abs(this.momentum[0]);i++){this.moveNz();}
+if(crashPlanet(this.xCoord,this.yCoord,Planet.xCoord,Planet.yCoord)===true){
+console.log("You've Crashed! Game over");}
+}
+
+
+}};
+Player1.token = new Image();
+Player1.token.src="img/playerRed.png";
+Player1.token.onload=function(){
+ctx.drawImage(Player1.token,5,5,120,104);};
+Planet = {
+gravityWell:"not sure yet",
+xCoord: 455,
+yCoord:265,
+txy : [455,265],
+};
+Planet.token = new Image();
+Planet.token.src = "img/planet.png"
+Planet.token.onload=function(){
+ctx.drawImage(Planet.token,455,265,120,104);};
+var crashPlanet = function(x,y,z,q){if(x===z&&y===q){return true}else{return false};}
+var Up=function(){Player1.turn(0,-1,0);};
+var upLeft=function(){Player1.turn(0,0,-1);};
+var downRight=function(){Player1.turn(0,0,1);};
+var Down=function(){Player1.turn(0,1,0);};
+var upRight=function(){Player1.turn(1,0,0);};
+var downLeft=function(){Player1.turn(-1,0,0);};
+var takeTurn = function(){Player1.turn(0,0,0)}
+function keyEvent(event) {
+var key = event.keyCode;
+switch (key) {
+case 88:
+    result = Down();
+    break;
+    
+case 82:
+    result = Up();  
+    break;
+    
+case 69:
+    result = upLeft();
+    break;
+case 67:
+    result = downRight();
+    break;
+case 70:
+    result = upRight();
+    break;
+case 83:
+    result = downLeft();
+    break;
+case 68:
+result = takeTurn();
+	break;
+  }};
+</script>
+</body>
+</html>
