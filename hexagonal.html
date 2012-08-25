@@ -4,32 +4,33 @@
 <canvas id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 <script type="text/javascript">
+theQuestion=true
+var questioner = function(answer)
+	{
+	if(answer==="y"||answer==="n")
+		{
+		if(answer==="y")
+			{
+			location.reload();
+			}
+		else
+			{
+			ctx.fillRect(0,0,1000,1000);
+			ctx.font="30px Arial";
+			ctx.fillStyle="#FFFFFF";
+			ctx.fillText("GAME OVER",400,350);
+			}
+		}
+	else
+		{
+		questioner(answer)
+		}
+	};
 var c=document.getElementById("gameBoard");
 var ctx=c.getContext("2d");
-var img=new Image();
-img.src="img/hexagonal.png";
-imgA= function(){return img;}
-var hexagon = function(x,y){
-var Ap=x;
-var Bp=Ap-60;
-var Cp=Bp-30;
-var Dp=Ap+30;
-var ap=y
-var bp=ap+52
-var cp=bp+52
-ctx.beginPath();
-ctx.moveTo(Ap,ap);
-ctx.lineTo(Bp,ap);
-ctx.lineTo(Cp,bp);
-ctx.lineTo(Bp,cp);
-ctx.lineTo(Ap,cp);
-ctx.lineTo(Dp,bp);
-ctx.lineTo(Ap,ap);
-ctx.strokeStyle="blue";
-ctx.stroke();
-};
-
-img.onload = function()
+var mapHexagon=new Image();
+mapHexagon.src="img/hexagonal.png";
+mapHexagon.onload = function()
 	{
 	for(i=0;i<10;i++)
 		{
@@ -44,33 +45,11 @@ img.onload = function()
 				{
 				c=52
 				}
-			ctx.drawImage(imgA(),90*i+5,5+104*y+c,120,104);
+			ctx.drawImage(mapHexagon,90*i+5,5+104*y+c,120,104);
 			}
 		}
 	}
-
-var map = function()
-	{
-	AB = 100
-	AC = 15
-	for(i=0;i<10;i++)
-		{
-		for(y=0;y<5;y++)
-			{
-			c=0;
-			if(i%2!==0)
-				{
-				c = 90;
-				}
-			else
-				{
-				c=0;
-				}
-			hexagon(AB+y*180+c,AC+i*52);
-			}
-		}
-	}
-Player1={
+Player1= {
 xy:[5,5],
 up:-104,
 down: 104,
@@ -83,11 +62,13 @@ moveDown:function()
 	if(this.xy[1]+this.down >1000)
 
 		{
-		console.log("Not gonna happen!");
+		ctx.font="20px Georgia";
+		ctx.fillText("You've Crashed!",10,50);
+		questioner(prompt("do you wish to continue? y/n"));
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104);
+		ctx.drawImage(mapHexagon,this.xy[0],this.xy[1],120,104);
 		ctx.drawImage(Player1.token,this.xy[0],this.xy[1]+this.down,120,104);
 		this.xy[1]+=104;
 
@@ -98,11 +79,12 @@ moveRight:function()
 	if(this.xy[1]+this.Z >1000||this.xy[0]+90>900)
 
 		{
-		console.log("Not gonna happen!");
+		ctx.font="20px Georgia";
+ctx.fillText("You've Crashed!",10,50);
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(mapHexagon,this.xy[0],this.xy[1],120,104)
 		ctx.drawImage(Player1.token,this.xy[0]+90,this.xy[1]+52,120,104);
 		this.xy[0]+=90
 		this.xy[1]+=52;
@@ -114,11 +96,12 @@ moveZ:function()
 	if(this.xy[1]-52 <5|this.xy[0]+this.down >900)
 
 		{
-		console.log("Not gonna happen!");
+		ctx.font="20px Georgia";
+ctx.fillText("You've Crashed!",10,50);
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(mapHexagon,this.xy[0],this.xy[1],120,104)
 		ctx.drawImage(Player1.token,this.xy[0]+90,this.xy[1]-52,120,104);
 		this.xy[0]+=90
 		this.xy[1]-=52;
@@ -130,11 +113,12 @@ moveUp:function()
 
 	if(this.xy[1]-104<5)
 		{
-		console.log("Not gonna happen!");
+		ctx.font="20px Georgia";
+ctx.fillText("You've Crashed!",10,50);
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(mapHexagon,this.xy[0],this.xy[1],120,104)
 		ctx.drawImage(Player1.token,this.xy[0],this.xy[1]-104,120,104);
 		this.xy[1]-=104;
 
@@ -146,11 +130,12 @@ moveLeft:function()
 	if(this.xy[1]-52 <5|this.xy[0]-90 <5)
 
 		{
-		console.log("Not gonna happen!");
+		ctx.font="20px Georgia";
+ctx.fillText("You've Crashed!",10,50);
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(mapHexagon,this.xy[0],this.xy[1],120,104)
 		ctx.drawImage(Player1.token,this.xy[0]-90,this.xy[1]-52,120,104);
 		this.xy[0]-=90
 		this.xy[1]-=52;
@@ -162,11 +147,12 @@ moveNz:function()
 	if(this.xy[1]+52 >1000||this.xy[0]-90 <5)
 
 		{
-		console.log("Not gonna happen!");
+		ctx.font="20px Georgia";
+ctx.fillText("You've Crashed!",10,50);
 		}
 	else
 		{
-		ctx.drawImage(imgA(),this.xy[0],this.xy[1],120,104)
+		ctx.drawImage(mapHexagon,this.xy[0],this.xy[1],120,104)
 		ctx.drawImage(Player1.token,this.xy[0]-90,this.xy[1]+52,120,104);
 		this.xy[0]-=90
 		this.xy[1]+=52;
@@ -181,7 +167,7 @@ turn:function(x,y,z)
 	this.momentum[2]+=z;
 	switch(Player1.xy)
 		{
-		case Planet.txy:
+		case Planet.rxy:
 			result = console.log("testing for now");
 			break;
 		}
@@ -227,7 +213,7 @@ turn:function(x,y,z)
 			this.moveNz();
 			}
 
-		if(crashPlanet(this.xy[0],this.xy[1],Planet.xCoord,Planet.yCoord)===true)
+		if(crashPlanet(this.xy,Planet.xy)===true)
 			{
 			console.log("You've Crashed! Game over");
 			}
@@ -239,12 +225,15 @@ Player1.token.src="img/playerRed.png";
 Player1.token.onload=function()
 	{
 	ctx.drawImage(Player1.token,5,5,120,104);
-	}
+	};
 Planet = {
-gravityWell:"not sure yet",
-xCoord: 455,
-yCoord:265,
-txy : [455,265],
+	xy: [455,265],
+	rxy: [this.xy[0],this.xy[1]-104],
+	fxy: [this.xy[0]+90,this.xy[1]-52],
+	cxy: [this.xy[0]+90,this.xy[1]+52],
+	xxy: [this.xy[0],this.xy[1]+104],
+	sxy: [this.xy[0]-90,this.xy[1]+52],
+	exy: [this.xy[0]-90,this.xy[1]-52]
 };
 Planet.token = new Image();
 Planet.token.src = "img/planet.png"
@@ -252,9 +241,9 @@ Planet.token.onload=function()
 	{
 	ctx.drawImage(Planet.token,455,265,120,104);
 	};
-var crashPlanet = function(x,y,z,q)
+var crashPlanet = function(x,y)
 	{
-	if(x===z&&y===q)
+	if(x===y)
 		{
 		return true
 		}
