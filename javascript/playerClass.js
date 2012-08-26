@@ -3,8 +3,10 @@ var setPos = function(newX, newY)
 	this.x = newX;
 	this.y = newY;
 	}
-var Player = function(startX, startY, src, canvas2d)
+var Player = function(startX, startY, src, canvas2d, background)
 	{
+	var canvas2d = canvas2d;
+	var background = background;
 	this.startX = startX;
 	this.x = startX;
 	this.startY = startY;
@@ -29,7 +31,7 @@ var Player = function(startX, startY, src, canvas2d)
 		console.log("you can't go there");
 		};
 		{
-		canvas2d.drawImage(board.background, this.x, this.y,120, 104);
+		canvas2d.drawImage(background, this.x, this.y,120, 104);
 		canvas2d.drawImage(this.token, this.x+leftRight, this.y+upDown, 120, 104);
 		this.x += leftRight;
 		this.y += upDown;
