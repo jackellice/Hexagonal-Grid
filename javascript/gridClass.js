@@ -21,7 +21,7 @@ var Grid = function(name, src)
 	this.planet = [];
 	this.planets = [];
 	this.background = new Image();
-	this.background.src="./img/hexagonal.png";
+	this.background.src = src;
 	this.background.onload = function()
 		{
 		var c = 52;
