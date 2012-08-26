@@ -25,8 +25,8 @@
 		{
 			hectagonMove=function(x, y, z)
 			{
-			var upDown = this.momentum[1] * 104 + this.momentum[2] * 52 + this.momentum[0] * 52;
-			var leftRight = this.momentum[0] * 90 - this.momentum[2] * 90;
+			var upDown = y * 104 + z * 52 + x * 52;
+			var leftRight = x * 90 - z * 90;
 			if(this.y + upDown < 1000 ||this.x + leftRight < 900 || this.y + upDown > 5 || this.x + leftRight > 5)
 				{
 				var A = [leftRight + 30, upDown + 104]
