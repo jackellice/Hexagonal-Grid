@@ -7,12 +7,16 @@ var updateGravityFields = function()
 	this.gravityFields.BottomLeft = [this.coordinate.x - 90, this.coordinate.y + 52];
 	this.gravityFields.TopLeft = [this.coordinate.x - 90, this.coordinate.y - 52];
 	}
-var Planet = function(x, y, src)
+var Planet = function(x, y, src, canvas2d)
 	{
 	this.token = new Image(); this.token.src = src;
+	this.token.onload = function()
+		{
+		canvas2d.drawImage(this, x, y, 120, 104);
+		}
 	this.coordinate = [];
 	this.coordinate.x = x;
 	this.coordinate.y = y;
-	this.updateGravityFields = updateGravityFields;
 	this.gravityFields = [];
+	this.updateGravityFields = updateGravityFields;
 	}
