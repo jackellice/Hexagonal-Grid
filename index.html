@@ -20,7 +20,7 @@
 			board.newPlanet("Mars", 455, 265, "./img/planet.png");
 	sixDirectionMove=function(x, y, z)
 			{
-			var upDown = y * 104 + z * 52 + x * 52 + board.player.Banane9.y-30;
+			var upDown = y * 104 + z * 52 + x * 52 + board.player.Banane9.y-104;
 			var leftRight = x * 90 - z * 90 + board.player.Banane9.x;
 				var A = [leftRight + 30, upDown + 104]
 				var B = [leftRight + 90, upDown + 104]	
@@ -28,13 +28,8 @@
 				var D = [leftRight, upDown + 156]
 				var E = [leftRight + 30, upDown + 208]
 				var F = [leftRight + 90, upDown + 208]
-				var key = [event.clientX-8-document.body.scrollTop, event.clientY-8-document.body.scrollLeft];
-				console.log(A)
-				console.log(B)
-				console.log(C)
-				console.log(D)
-				console.log(E)
-				console.log(F)
+				var key = [event.clientX-7-document.body.scrollLeft, event.clientY-80+document.body.scrollTop];
+			
 				console.log(key)
 				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))
 					{
