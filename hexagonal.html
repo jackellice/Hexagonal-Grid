@@ -3,6 +3,7 @@
 <body>
 <canvas onmouseup="keyEvent(event)" id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
+<script type="text/javascript" src="planetClass.js"></script>
 <script type="text/javascript">
 theQuestion=true
 var questioner = function(answer)
@@ -273,8 +274,7 @@ function keyEvent(event)
 		return gradient;
 		}
 	var key = [event.clientX-8,event.clientY-8];
-	if (key[1]>A[1] && key[0]>A[0])
-/*	if (getGradient(B,key)>getGradient(B,C)&&getGradient(F,key)<getGradient(F,C))*/
+	if (getGradient(B,key)>getGradient(B,C)&&getGradient(F,key)<getGradient(F,C))
 		{
 		Player1.turn(0,1,0);
 		}
