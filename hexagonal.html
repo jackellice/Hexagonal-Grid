@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
-<body>
-<canvas onmouseup="keyEvent(event)" id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
+<body onmouseup="keyEvent(event)">
+<canvas id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 <script type="text/javascript" src="planetClass.js"></script>
 <script type="text/javascript">
@@ -50,7 +50,18 @@ mapHexagon.onload = function()
 			}
 		}
 	}
-var Planet ={xy: [455,265]};
+var crashPlanet = function(theCraft,thePlanet)
+	{
+	if(theCraft[0]===thePlanet[0]&& thePlanet[1]===theCraft[1])
+		{
+		return true
+		}
+	else
+		{
+		return false
+		}
+	}
+
 Player1= {
 xy:[5,5],
 up:-104,
@@ -162,22 +173,22 @@ turn:function(x,y,z)
 	this.momentum[2]+=z;
 	switch(Player1.xy)
 		{
-		case Planet.rxy:
+		case Mars.gravityFields.Top:
 			result = console.log("testing for now");
 			break;
-		case Planet.rxy:
+		case Mars.gravityFields.TopRight:
 			result = console.log("testing for now");
 			break;
-		case Planet.rxy:
+		case Mars.gravityFields.TopLeft:
 			result = console.log("testing for now");
 			break;
-		case Planet.rxy:
+		case Mars.gravityFields.BottomRight:
 			result = console.log("testing for now");
 			break;
-		case Planet.rxy:
+		case Mars.gravityFields.BottomLeft:
 			result = console.log("testing for now");
 			break;
-		case Planet.rxy:
+		case Mars.gravityFields.Bottom:
 			result = console.log("testing for now");
 			break;
 			default:
@@ -238,26 +249,7 @@ Player1.token.onload=function()
 	ctx.drawImage(Player1.token,5,5,120,104);
 	};
 
-Planet.token = new Image();
-Planet.token.src = "img/planet.png"
-Planet.token.onload=function()
-	{
-	ctx.drawImage(Planet.token,455,265,120,104);
-	};
-var crashPlanet = function(theCraft,thePlanet)
-	{
-	if(theCraft[0]===thePlanet[0]&& thePlanet[1]===theCraft[1])
-		{
-		return true
-		}
-	else
-		{
-		return false
-		}
-	}
-
-
-
+/*
 function keyEvent(event)
 	{
 	var A= [Player1.xy[0]+30,Player1.xy[1]+104]
@@ -298,9 +290,9 @@ function keyEvent(event)
 		}
 		
 	}
+*/
 
 
-/*
 function keyEvent(event)
 	{
 	var key = event.keyCode;
@@ -331,7 +323,8 @@ function keyEvent(event)
 			break;
 		}
 	}
-*/
+var Mars
+Mars.token = new Image(); 
 </script>
 </body>
 </html>
