@@ -1,6 +1,6 @@
 var newPlayer = function(name, startX, startY, src)
 	{
-	this.player[name] = new Player(startX, startY, src, this.board, background);
+	this.player[name] = new Player(startX, startY, src, this.board, this.background);
 	this.players[this.players.length] = name;
 	}
 var newPlanet = function(name, x, y, src)
