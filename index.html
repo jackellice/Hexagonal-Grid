@@ -11,7 +11,7 @@
 	</head>
 	<body onkeypress="keyEvent(event)">
 		<h1 align="center">Hexagonal Grid</h1>
-		<canvas onmouseup="keyEvent(event)" id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
+		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 		<script language="JavaScript">
@@ -20,17 +20,21 @@
 			board.newPlanet("Mars", 455, 265, "./img/planet.png");
 	sixDirectionMove=function(x, y, z)
 			{
-			var upDown = y * 104 + z * 52 + x * 52 + board.player.Banane9.y-104;
+			var upDown = y * 104 + z * 52 + x * 52 + board.player.Banane9.y-30;
 			var leftRight = x * 90 - z * 90 + board.player.Banane9.x;
-			if(this.y + upDown < 1000 ||this.x + leftRight < 900 || this.y + upDown > 5 || this.x + leftRight > 5)
-				{
 				var A = [leftRight + 30, upDown + 104]
 				var B = [leftRight + 90, upDown + 104]	
 				var C = [leftRight + 120, upDown + 156]
 				var D = [leftRight, upDown + 156]
 				var E = [leftRight + 30, upDown + 208]
 				var F = [leftRight + 90, upDown + 208]
-				var key = [event.clientX-8, event.clientY-8];
+				var key = [event.clientX-8-document.body.scrollTop, event.clientY-8-document.body.scrollLeft];
+				console.log(A)
+				console.log(B)
+				console.log(C)
+				console.log(D)
+				console.log(E)
+				console.log(F)
 				console.log(key)
 				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))
 					{
@@ -54,7 +58,7 @@
 							}
 						}
 					}
-				}
+				
 			};	
 	var getGradient = function(b,a)
 					{
@@ -66,14 +70,17 @@
 	function keyEvent(event)
 	{
 	sixDirectionMove(1, 0, 0);
-	sixDirectionMove(0, 0, 0);
 	sixDirectionMove(0, 1, 0);
 	sixDirectionMove(0, 0, 1);
 	sixDirectionMove(-1, 0, 0);
 	sixDirectionMove(0, -1, 0);
 	sixDirectionMove(0, 0, -1);
+	sixDirectionMove(0, 0, 0);
 		};
-
+    function newT(event)
+    {
+    console.log(event.clientX+", "+event.clientY)
+    };
 		</script>
 	</body>
 </html>
