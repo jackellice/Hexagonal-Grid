@@ -6,6 +6,7 @@ var newPlayer = function(name, startX, startY, src)
 var newPlanet = function(name, x, y, src)
 	{
 	this.planet[name] = new Planet(x, y, src, this.board);
+	this.planet[name].updateGravityFields();
 	this.planets[this.planets.length] = name;
 	}
 var Grid = function(name, src)
