@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html>
-<body onmouseup="keyEvent(event)">
+<body onkeypress="keyEvent(event)">
 <canvas id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
-<script type="text/javascript" src="planetClass.js"></script>
+<script type="text/javascript" src="./planetClass.js"></script>
 <script type="text/javascript">
 theQuestion=true
 var questioner = function(answer)
@@ -50,18 +50,6 @@ mapHexagon.onload = function()
 			}
 		}
 	}
-var crashPlanet = function(theCraft,thePlanet)
-	{
-	if(theCraft[0]===thePlanet[0]&& thePlanet[1]===theCraft[1])
-		{
-		return true
-		}
-	else
-		{
-		return false
-		}
-	}
-
 Player1= {
 xy:[5,5],
 up:-104,
@@ -166,39 +154,20 @@ moveNz:function()
 		}
 	},
 momentum : [0,0,0],
+planetGravityPull:0,
 turn:function(x,y,z)
 	{
 	this.momentum[0]+=x;
-	this.momentum[1]+=y;
+	this.momentum[1]+=y+this.planetGravityPull;
 	this.momentum[2]+=z;
-	switch(Player1.xy)
-		{
-		case Mars.gravityFields.Top:
-			result = console.log("testing for now");
-			break;
-		case Mars.gravityFields.TopRight:
-			result = console.log("testing for now");
-			break;
-		case Mars.gravityFields.TopLeft:
-			result = console.log("testing for now");
-			break;
-		case Mars.gravityFields.BottomRight:
-			result = console.log("testing for now");
-			break;
-		case Mars.gravityFields.BottomLeft:
-			result = console.log("testing for now");
-			break;
-		case Mars.gravityFields.Bottom:
-			result = console.log("testing for now");
-			break;
-			default:
-			break;
-		}
 	if(this.momentum[1]>0)
 		{
 		for(i=0;i<this.momentum[1];i++)
 			{
 			this.moveDown();
+			if(this.planetGravityPull !==0){
+			this.momentum[1]--;
+			}
 			}
 		}
 	else
@@ -236,10 +205,15 @@ turn:function(x,y,z)
 			this.moveNz();
 			}
 		}
-		if(crashPlanet(Player1.xy,Planet.xy)===true)
+		if(crashPlanet(Player1.xy,Mars.coordinate.x,Mars.coordinate.y)===true)
 			{
 			console.log("You've Crashed! Game over");
 			}
+				if(Mars.gravityFields.top[0]===Player1.xy[0] && Mars.gravityFields.top[1]===Player1.xy[1])
+	{
+	this.planetGravityPull +=1;
+	console.log("test")
+	}
 		}
 	}
 Player1.token = new Image();
@@ -248,7 +222,26 @@ Player1.token.onload=function()
 	{
 	ctx.drawImage(Player1.token,5,5,120,104);
 	};
-
+Mars = new Planet(455,265,"img/planet.png")
+Mars.token.src = "img/planet.png";
+Mars.token.onload=function()
+	{
+	ctx.drawImage(Mars.token,455,265,120,104);
+	};
+var crashPlanet = function(theCraft,Planetx,Planety)
+	{
+	if(theCraft[0]===Planetx&& Planety===theCraft[1])
+		{
+		return true
+		}
+	else
+		{
+		return false
+		}
+	
+	}
+	
+	
 /*
 function keyEvent(event)
 	{
@@ -300,6 +293,7 @@ function keyEvent(event)
 		{
 		case 88:
 			result = Player1.turn(0,1,0);
+			console.log("test");
 			break;
 		case 82:
 			result = Player1.turn(0,-1,0);  
@@ -323,8 +317,7 @@ function keyEvent(event)
 			break;
 		}
 	}
-var Mars
-Mars.token = new Image(); 
+
 </script>
 </body>
 </html>
