@@ -18,15 +18,10 @@
 			board = new Grid("gameBoard", "./img/hexagonal.png");
 			board.newPlayer("Banane9", 90 * 2 + 5, 2 * 52 +5, "./img/playerRed.png");
 			board.newPlanet("Mars", 455, 265, "./img/planet.png");
-		
-	function keyEvent(event)
-	{
-	var getGradient = function(b,a)
-		{
-			hectagonMove=function(x, y, z)
+	sixDirectionMove=function(x, y, z)
 			{
-			var upDown = y * 104 + z * 52 + x * 52;
-			var leftRight = x * 90 - z * 90;
+			var upDown = y * 104 + z * 52 + x * 52 + board.player.Banane9.y-104;
+			var leftRight = x * 90 - z * 90 + board.player.Banane9.x;
 			if(this.y + upDown < 1000 ||this.x + leftRight < 900 || this.y + upDown > 5 || this.x + leftRight > 5)
 				{
 				var A = [leftRight + 30, upDown + 104]
@@ -35,30 +30,23 @@
 				var D = [leftRight, upDown + 156]
 				var E = [leftRight + 30, upDown + 208]
 				var F = [leftRight + 90, upDown + 208]
-				var getGradient = function(b,a)
-					{
-					yMinus =  (b[1] - a[1]);
-					xMinus = (b[0] - a[0]);
-					gradient =yMinus / xMinus;
-					return gradient;
-					};
 				var key = [event.clientX-8, event.clientY-8];
 				console.log(key)
 				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))
 					{
-					board.player.Banane9.turn(0, 1, 0);
+					board.player.Banane9.turn(x, y, z);
 					}
 				else
 					{
 					if (getGradient(A, key) < getGradient(A, D) && getGradient(E, key) > getGradient(E, D))
 						{
-						board.player.Banane9.turn(0, 1, 0);
+						board.player.Banane9.turn(x, y, z);
 						}
 					else
 						{
 						if(key[0] > A[0] && key[1] > A[1] && key[0] < B[0] && key[1] < F[1])
 							{
-							board.player.Banane9.turn(0, 1, 0);
+							board.player.Banane9.turn(x, y, z);
 							}
 						else
 							{
@@ -67,9 +55,25 @@
 						}
 					}
 				}
-			};
+			};	
+	var getGradient = function(b,a)
+					{
+					yMinus =  (b[1] - a[1]);
+					xMinus = (b[0] - a[0]);
+					gradient =yMinus / xMinus;
+					return gradient;
+					};
+	function keyEvent(event)
+	{
+	sixDirectionMove(1, 0, 0);
+	sixDirectionMove(0, 0, 0);
+	sixDirectionMove(0, 1, 0);
+	sixDirectionMove(0, 0, 1);
+	sixDirectionMove(-1, 0, 0);
+	sixDirectionMove(0, -1, 0);
+	sixDirectionMove(0, 0, -1);
 		};
-	};
+
 		</script>
 	</body>
 </html>
