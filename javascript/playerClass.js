@@ -26,8 +26,8 @@ var Player = function(startX, startY, src, canvas2d)
 		}
 	else
 		{
-		ctx.drawImage(board.background,this.x,this.y,120,104);
-		ctx.drawImage(this.token,this.x+leftRight,this.y+upDown,120,104);
+		canvas2d.drawImage(board.background,this.x,this.y,120,104);
+		canvas2d.drawImage(this.token,this.x+leftRight,this.y+upDown,120,104);
 		this.x+=leftRight;
 		this.y+=upDown;
 		}};
@@ -36,7 +36,7 @@ var Player = function(startX, startY, src, canvas2d)
 	this.momentum[0]+=x;
 	this.momentum[1]+=y
 	this.momentum[2]+=z;
-
+	this.move(x,y,z);
 	this.crashPlanet = function(theCraft,Planetx,Planety)
 	{
 	if(theCraft[0]===Planetx&& Planety===theCraft[1])
