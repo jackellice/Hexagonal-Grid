@@ -17,8 +17,91 @@ var Player = function(startX, startY, src, canvas2d, background)
 		canvas2d.drawImage(this, startX, startY, 120, 104);
 		};
 	this.setPos = setPos;
-	this.momentum = [0,0,0];
-	this.planetGravityPull = 0;
+	this.momentum = [0, 0, 0];
+	this.planetGravityLeftRight = 0;
+	this.planetGravityUpDown = 0;
+	this.planetGravityRightLeft = 0;
+	this.planetGravityWellTest = function()
+		{
+		if(board.planet.Mars.gravityFields.Top[0]===this.x && board.planet.Mars.gravityFields.Top[1]===this.y)
+			{
+			this.planetGravityUpDown +=1;
+			this.momentum[1]+=1;
+			console.log("test");
+			}
+			else if(board.planet.Mars.gravityFields.TopRight[0]===this.x && board.planet.Mars.gravityFields.TopRight[1]===this.y)
+			{
+			this.planetGravityLeftRight +=1;
+			console.log("test");
+			this.momentum[2]+=1
+			}
+		else if(board.planet.Mars.gravityFields.TopLeft[0]===this.x && board.planet.Mars.gravityFields.TopLeft[1]===this.y)
+			{
+			this.planetGravityRightLeft +=1;
+			console.log("test");
+			this.momentum[0]+=1
+			}
+		else if(board.planet.Mars.gravityFields.Bottom[0]===this.x && board.planet.Mars.gravityFields.Bottom[1]===this.y)
+			{
+			this.planetGravityUpDown -=1;
+			console.log("test");
+			this.momentum[1]-=1;
+			}
+		else if(board.planet.Mars.gravityFields.BottomRight[0]===this.x && board.planet.Mars.gravityFields.BottomRight[1]===this.y)
+			{
+			this.planetGravityRightLeft -=1;
+			this.momentum[0]-=1
+			console.log("test");
+			}
+		else if(board.planet.Mars.gravityFields.BottomLeft[0]===this.x && board.planet.Mars.gravityFields.BottomLeft[1]===this.y)
+			{
+			this.planetGravityLeftRight -=1;
+			this.momentum[2]-=1
+			console.log("test");
+			}
+		};
+	this.planetGravityPull = function()
+		{
+		if(this.planetGravityLeftRight > 0)
+			{
+			this.momentum[2] += 1;
+			this.planetGravityLeftRight--;
+			console.log("PGPLR-");
+			}
+		else if(this.planetGravityLeftRight < 0)
+			{
+			this.momentum[2] -= 1;
+			this.planetGravityLeftRight++;
+			console.log("PGPLR+");
+			}
+		else if(this.planetGravityUpDown > 0)
+			{
+			this.momentum[1] += 1;
+			this.planetGravityUpDown--;
+			console.log("PGPUD-");
+			}
+		else if(this.planetGravityUpDown < 0)
+			{
+			this.momentum[1] -= 1;
+			this.planetGravityUpDown++;
+			console.log("PGPUD+");
+			}
+		else if(this.planetGravityRightLeft > 0)
+			{
+			this.momentum[0] += 1;
+			this.planetGravityRightLeft--;
+			console.log("PGPRL-");
+			}
+		else if(this.planetGravityRightLeft < 0)
+			{
+			this.momentum[0] -= 1;
+			this.planetGravityRightLeft++;
+			console.log("PGPRL+");
+			}
+			this.planetGravityLeftRight = 0;
+	this.planetGravityUpDown = 0;
+	this.planetGravityRightLeft = 0;
+		};	
 	this.move=function(x, y, z)
 		{
 		this.momentum[0] += x;
@@ -37,52 +120,26 @@ var Player = function(startX, startY, src, canvas2d, background)
 			this.x += leftRight;
 			this.y += upDown;
 			}
-		}
-	this.turn=function(x, y, z)
-		{
-		this.move(x, y, z);
-		this.crashPlanet = function(theCraft, Planetx, Planety)
+		};
+	this.crashPlanet = function(theCraftx,theCrafty, Planetx, Planety)
 			{
-			if(theCraft[0] === Planetx && Planety === theCraft[1])
+			if(theCraftx === Planetx && Planety === theCrafty)
 				{
 				console.log("You've Crashed! Game over");
 				}
-			}
-	
-		}
-	}
-/*
-	if(crashPlanet(Player1.xy,Mars.coordinate.x,Mars.coordinate.y)===true)
-			{
-			
-			}
-	if(this.planetGravityPull!==0){
-			this.moveDown();
-			this.planetGravityPull--;
-			}
-	if(Mars.gravityFields.Top[0]===Player1.xy[0] && Mars.gravityFields.Top[1]===Player1.xy[1])
+			};
+	this.turn=function(x, y, z)
 		{
-	this.planetGravityupDown +=1;
-	console.log("test")
-		}
-	else if(Mars.gravityFields.Top[0]===Player1.xy[0] && Mars.gravityFields.Top[1]===Player1.xy[1])
-		{
-		this.planetGravityleftRight +=1;
-		}
-	else if(Mars.gravityFields.Top[0]===Player1.xy[0] && Mars.gravityFields.Top[1]===Player1.xy[1])
-		{
-		this.planetGravityRightLeft +=1;
-		}
-	else if(Mars.gravityFields.Top[0]===Player1.xy[0] && Mars.gravityFields.Top[1]===Player1.xy[1])
-		{
-		this.planetGravityupDown -=1;
-		}
-	else if(Mars.gravityFields.Top[0]===Player1.xy[0] && Mars.gravityFields.Top[1]===Player1.xy[1])
-		{
-		this.planetGravityRightLeft -=1;
-		}
-	else if(Mars.gravityFields.Top[0]===Player1.xy[0] && Mars.gravityFields.Top[1]===Player1.xy[1])
-		{
-		this.planetGravityleftRight -=1;
-		}*/
+		this.planetGravityPull();
+		this.move(x, y, z);
+		this.planetGravityWellTest();
 		
+		this.crashPlanet(this.x,this.y,board.planet.Mars.coordinate.x,board.planet.Mars.coordinate.y)
+		console.log(this.planetGravityLeftRight);
+		console.log(this.planetGravityUpDown);
+		console.log(this.planetGravityRightLeft);
+		console.log(this.momentum);
+		};
+	};
+	
+	
