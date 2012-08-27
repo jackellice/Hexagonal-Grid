@@ -33,9 +33,9 @@ var Player = function(startX, startY, src, canvas2d, background)
 			{
 			this.planetGravityUpDown +=1;
 			this.momentum[1]+=1;
-			console.log("test");
+			console.log("Top gravity field engaged.");
 			}
-			else if(board.planet[indigo].gravityFields.TopRight[0]===this.x && board.planet[indigo].gravityFields.TopRight[1]===this.y)
+		else if(board.planet[indigo].gravityFields.TopRight[0]===this.x && board.planet[indigo].gravityFields.TopRight[1]===this.y)
 			{
 			this.planetGravityLeftRight +=1;
 			console.log("test");
@@ -71,37 +71,30 @@ var Player = function(startX, startY, src, canvas2d, background)
 		{
 		if(this.planetGravityLeftRight > 0)
 			{
-			this.momentum[2] += 1;
 			this.planetGravityLeftRight--;
 			console.log("pgpLR-");
 			}
 		else if(this.planetGravityLeftRight < 0)
 			{
-			this.momentum[2] -= 1;
 			this.planetGravityLeftRight++;
 			console.log("pgpLR+");
 			}
 		else if(this.planetGravityUpDown > 0)
 			{
-			this.momentum[1] += 1;
-			this.planetGravityUpDown--;
 			console.log("pgpUD-");
 			}
 		else if(this.planetGravityUpDown < 0)
 			{
-			this.momentum[1] -= 1;
 			this.planetGravityUpDown++;
 			console.log("pgpUD+");
 			}
 		else if(this.planetGravityRightLeft > 0)
 			{
-			this.momentum[0] += 1;
 			this.planetGravityRightLeft--;
 			console.log("pgpRL-");
 			}
 		else if(this.planetGravityRightLeft < 0)
 			{
-			this.momentum[0] -= 1;
 			this.planetGravityRightLeft++;
 			console.log("pgpRL+");
 			}
@@ -116,7 +109,7 @@ var Player = function(startX, startY, src, canvas2d, background)
 		this.momentum[2] += z;
 		var upDown = this.momentum[1] * 52 + this.momentum[2] * 26 + this.momentum[0] * 26;
 		var leftRight = this.momentum[0] * 45 - this.momentum[2] * 45;
-		if(this.y + upDown > 2250 ||this.x + leftRight > 1600 || this.y + upDown < 5 || this.x + leftRight < 5)
+		if(this.y + upDown > 2280 ||this.x + leftRight > 1850 || this.y + upDown < 5 || this.x + leftRight < 5)
 			{
 			console.log("you can't go there");
 			}
@@ -138,8 +131,9 @@ var Player = function(startX, startY, src, canvas2d, background)
 	this.turn=function(x, y, z)
 		{
 		this.planetGravityWellTest();
-		this.planetGravityPull();
+		
 		this.move(x, y, z);
+		this.planetGravityPull();
 		for (var indigo in board.planet)
 			{
 		this.crashPlanet(this.x,this.y,board.planet[indigo].coordinate.x, board.planet[indigo].coordinate.y)
@@ -160,7 +154,6 @@ var Player = function(startX, startY, src, canvas2d, background)
 				var E = [leftRight + 15, upDown + 52]
 				var F = [leftRight + 45, upDown + 52]
 				var key = [event.clientX - 7 + document.body.scrollLeft, event.clientY - 80 + document.body.scrollTop];
-				console.log((event.clientX - 7 + document.body.scrollLeft)+", "+(event.clientY - 80 + document.body.scrollTop));
 				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))
 					{
 					return true
@@ -180,4 +173,8 @@ var Player = function(startX, startY, src, canvas2d, background)
 				};
 	};
 	
+if(board.player.Banane9.momentum[0]+board.player.Banane9.momentum[1]+board.player.Banane9.momentum[2]+board.player.Banane9.momentum[1]===0)
+{
+console.log("yes!");
+}
 	
