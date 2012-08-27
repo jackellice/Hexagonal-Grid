@@ -13,9 +13,9 @@ var Player = function(startX, startY, src, canvas2d, background)
 	var canvas2d = canvas2d;
 	var background = background;
 	this.startX = startX;
-	this.x = 45 * startX +5 - 90;
+	this.x = 45 * startX + 5 - 90;
 	this.startY = startY;
-	this.y = 5 + 52 * startY + c - 52;
+	this.y = 52 * startY + c + 5 - 52;
 	this.token = new Image(); this.token.src = src;
 	this.token.onload = function()
 		{
@@ -73,37 +73,37 @@ var Player = function(startX, startY, src, canvas2d, background)
 			{
 			this.momentum[2] += 1;
 			this.planetGravityLeftRight--;
-			console.log("PGPLR-");
+			console.log("pgpLR-");
 			}
 		else if(this.planetGravityLeftRight < 0)
 			{
 			this.momentum[2] -= 1;
 			this.planetGravityLeftRight++;
-			console.log("PGPLR+");
+			console.log("pgpLR+");
 			}
 		else if(this.planetGravityUpDown > 0)
 			{
 			this.momentum[1] += 1;
 			this.planetGravityUpDown--;
-			console.log("PGPUD-");
+			console.log("pgpUD-");
 			}
 		else if(this.planetGravityUpDown < 0)
 			{
 			this.momentum[1] -= 1;
 			this.planetGravityUpDown++;
-			console.log("PGPUD+");
+			console.log("pgpUD+");
 			}
 		else if(this.planetGravityRightLeft > 0)
 			{
 			this.momentum[0] += 1;
 			this.planetGravityRightLeft--;
-			console.log("PGPRL-");
+			console.log("pgpRL-");
 			}
 		else if(this.planetGravityRightLeft < 0)
 			{
 			this.momentum[0] -= 1;
 			this.planetGravityRightLeft++;
-			console.log("PGPRL+");
+			console.log("pgpRL+");
 			}
 			this.planetGravityLeftRight = 0;
 	this.planetGravityUpDown = 0;
@@ -116,7 +116,7 @@ var Player = function(startX, startY, src, canvas2d, background)
 		this.momentum[2] += z;
 		var upDown = this.momentum[1] * 52 + this.momentum[2] * 26 + this.momentum[0] * 26;
 		var leftRight = this.momentum[0] * 45 - this.momentum[2] * 45;
-		if(this.y + upDown > 1000 ||this.x + leftRight > 900 || this.y + upDown < 5 || this.x + leftRight < 5)
+		if(this.y + upDown > 2250 ||this.x + leftRight > 1600 || this.y + upDown < 5 || this.x + leftRight < 5)
 			{
 			console.log("you can't go there");
 			}
@@ -149,6 +149,35 @@ var Player = function(startX, startY, src, canvas2d, background)
 		console.log(this.planetGravityRightLeft);
 		console.log(this.momentum);
 		};
+	this.sixDirectionMove=function(x, y, z)
+				{
+				var upDown = y * 52 + z * 26 + x * 26 + this.y;
+				var leftRight = x * 45 - z * 45 + this.x;
+				var A = [leftRight + 15, upDown]
+				var B = [leftRight + 45, upDown]	
+				var C = [leftRight + 60, upDown + 26]
+				var D = [leftRight, upDown + 26]
+				var E = [leftRight + 15, upDown + 52]
+				var F = [leftRight + 45, upDown + 52]
+				var key = [event.clientX - 7 + document.body.scrollLeft, event.clientY - 80 + document.body.scrollTop];
+				console.log((event.clientX - 7 + document.body.scrollLeft)+", "+(event.clientY - 80 + document.body.scrollTop));
+				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))
+					{
+					return true
+					}
+				else if (getGradient(A, key) < getGradient(A, D) && getGradient(E, key) > getGradient(E, D))
+					{
+						return true
+					}
+				else if(key[0] > A[0] && key[1] > A[1] && key[0] < B[0] && key[1] < F[1])
+					{
+							return true
+					}
+				else
+					{
+					return false
+					}
+				};
 	};
 	
 	

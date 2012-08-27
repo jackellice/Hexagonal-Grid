@@ -5,58 +5,33 @@
 		<script src="./javascript/playerClass.js" language="JavaScript"></script>
 		<script src="./javascript/planetClass.js" language="JavaScript"></script>
 		<script src="./javascript/gridClass.js" language="JavaScript"></script>
-		<script language="JavaScript">
 			
 		</script>
 	</head>
 	<body>
 		<h1 align="center">Hexagonal Grid</h1>
-		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="2300" height="1650" style="border:1px solid #d3d3d3;">
+		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="2300" height="1860" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 		<script language="JavaScript">
 			board = new Grid("gameBoard", "./img/hexagonal.png");
-			board.newPlayer("Banane9", 11, 11, "./img/playerRed.png");
-			board.newPlanet("Mars", 8, 8, "./img/planetMars.png");
-			board.newPlanet("Earth", 10, 10, "./img/planetEarth.png");
-			board.newPlanet("Venus", 12, 12, "./img/planetVenus.png");
-			board.newPlanet("Jupiter", 4, 4, "./img/planetJupiter.png");
-			board.newPlanet("Io", 2, 2, "./img/moonIo.png");
-			board.newPlanet("Ceres", 5, 5, "./img/AsteroidCeres.png");
-			board.newPlanet("Ganymede", 6, 6, "./img/moonGanymede.png");
-			board.newPlanet("Europa", 7, 7, "./img/moonEuropa.png");
-			board.newPlanet("Callisto", 9, 9, "./img/moonCallisto.png");
-			board.newPlanet("Mercury", 43, 15, "./img/planetMercury.png");
-			board.newPlanet("Sun", 39, 16, "./img/theSun.png");
-			sixDirectionMove=function(x, y, z)
-				{
-				var upDown = y * 52 + z * 26 + x * 26 + board.player.Banane9.y;
-				var leftRight = x * 45 - z * 45 + board.player.Banane9.x;
-				var A = [leftRight + 15, upDown]
-				var B = [leftRight + 45, upDown]	
-				var C = [leftRight + 60, upDown + 26]
-				var D = [leftRight, upDown + 26]
-				var E = [leftRight + 15, upDown + 52]
-				var F = [leftRight + 45, upDown + 52]
-				var key = [event.clientX - 7 - document.body.scrollLeft, event.clientY - 80 + document.body.scrollTop];
-
-				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))
-					{
-					return true
-					}
-				else if (getGradient(A, key) < getGradient(A, D) && getGradient(E, key) > getGradient(E, D))
-					{
-						return true
-					}
-				else if(key[0] > A[0] && key[1] > A[1] && key[0] < B[0] && key[1] < F[1])
-					{
-							return true
-					}
-				else
-					{
-					return false
-					}
-				};	
+			board.newPlanet("Sun", 40, 20, "./img/theSun.png");
+			board.newPlanet("Mercury", 43, 17, "./img/planetMercury.png");
+			board.newPlanet("Venus", 44, 26, "./img/planetVenus.png");
+			board.newPlanet("Earth", 34, 10, "./img/planetEarth.png");
+			board.newPlanet("Moon", 33, 7, "./img/moonLuna.png");
+			board.newPlayer("Banane9", 33, 10, "./img/playerGreen.png");
+			board.newPlanet("Mars", 25, 28, "./img/planetMars.png");
+			board.newPlanet("Ceres", 13, 25, "./img/asteroidCeres.png");
+			board.newPlanet("Jupiter", 4, 19, "./img/planetJupiter.png");
+			board.newPlanet("Io", 6, 18, "./img/moonIo.png");
+			board.newPlanet("Europa", 7, 23, "./img/moonEuropa.png");
+			board.newPlanet("Ganymede", 2, 16, "./img/moonGanymede.png");
+			board.newPlanet("Callisto", 4, 29, "./img/moonCallisto.png");
+			board.newPlayer("Jackellice", 6, 17, "./img/playerBlue.png");
+			
+			
+				
 			var getGradient = function(b, a)
 				{
 					yMinus =  (b[1] - a[1]);
@@ -66,44 +41,46 @@
 				};
 			function keyEvent(event)
 				{
-				if(sixDirectionMove(1, 0, 0)===true)
+				for (var indigo in board.player){
+				if(board.player[indigo].sixDirectionMove(1, 0, 0)===true)
 					{
 					console.log("down right")
-					board.player.Banane9.turn(1, 0, 0)
+					board.player[indigo].turn(1, 0, 0)
 					}
-				 else if(sixDirectionMove(0, 0, 0)===true)
+				 else if(board.player[indigo].sixDirectionMove(0, 0, 0)===true)
 			    	{
-			    	board.player.Banane9.turn(0, 0, 0)
+			    	board.player[indigo].turn(0, 0, 0)
 					console.log("center")
 					}
-			    else if(sixDirectionMove(0, 1, 0)===true)
+			    else if(board.player[indigo].sixDirectionMove(0, 1, 0)===true)
 			    	{
-			    	board.player.Banane9.turn(0, 1, 0)
+			    	board.player[indigo].turn(0, 1, 0)
 					console.log("down")
 					}
-				else if(sixDirectionMove(0, 0, 1)===true)
+				else if(board.player[indigo].sixDirectionMove(0, 0, 1)===true)
 			    	{
-			    	board.player.Banane9.turn(0, 0, 1)
+			    	board.player[indigo].turn(0, 0, 1)
 					console.log("down left")
 					}
-				else if(sixDirectionMove(-1, 0, 0)===true)
+				else if(board.player[indigo].sixDirectionMove(-1, 0, 0)===true)
 			    	{
-			    	board.player.Banane9.turn(-1, 0, 0)
+			    	board.player[indigo].turn(-1, 0, 0)
 					console.log("up left")
 					}
-				else if(sixDirectionMove(0, -1, 0)===true)
+				else if(board.player[indigo].sixDirectionMove(0, -1, 0)===true)
 			    	{
-			    	board.player.Banane9.turn(0, -1, 0)
+			    	board.player[indigo].turn(0, -1, 0)
 					console.log("up")
 					}
-				else if(sixDirectionMove(0, 0, -1)===true)
+				else if(board.player[indigo].sixDirectionMove(0, 0, -1)===true)
 			    	{
-			    	board.player.Banane9.turn(0, 0, -1)
+			    	board.player[indigo].turn(0, 0, -1)
 					console.log("up right")
 					}
 				else
 					{
 					console.log("total miss")
+					}
 					}
 				};
 		</script>
