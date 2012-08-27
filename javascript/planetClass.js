@@ -12,7 +12,12 @@ var Planet = function(x, y, src, canvas2d)
 	this.token = new Image(); this.token.src = src;
 	this.token.onload = function()
 		{
-		canvas2d.drawImage(this, x, y, 60, 52);
+		var c = 26;
+		if(x % 2 == 0)
+			{
+			c = 0;
+			}
+		canvas2d.drawImage(this, 45 * x +5-90, 5 + 52 * y + c-52, 60, 52);
 		}
 	this.coordinate = [];
 	this.coordinate.x = x;

@@ -24,17 +24,16 @@ var Grid = function(name, src)
 	this.background.src = src;
 	this.background.onload = function()
 		{
-		var c = 26;
 		for(i = 0; i < 37; i++)
 			{
 			for(y = 0; y < 53; y++)
 				{
-				c = 26;
+				var c = 26;
 				if(i % 2 == 0)
 					{
 					c = 0;
 					}
-				board.drawImage(this, 45 * i +5-90, 5 + 52 * y + c-52, 60, 52);
+				board.drawImage(this, 45 * i +5 - 90, 5 + 52 * y + c - 52, 60, 52);
 				}
 			}
 		}
