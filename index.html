@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<h1 align="center">Hexagonal Grid</h1>
-		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="1550" height="2700" style="border:1px solid #d3d3d3;">
+		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="2300" height="1650" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 		<script language="JavaScript">
@@ -26,8 +26,8 @@
 			board.newPlanet("Ganymede", 6, 6, "./img/moonGanymede.png");
 			board.newPlanet("Europa", 7, 7, "./img/moonEuropa.png");
 			board.newPlanet("Callisto", 9, 9, "./img/moonCallisto.png");
-			board.newPlanet("Mercury", 13, 13, "./img/planetMercury.png");
-			board.newPlanet("Sun", 17, 40, "./img/theSun.png");
+			board.newPlanet("Mercury", 43, 15, "./img/planetMercury.png");
+			board.newPlanet("Sun", 39, 16, "./img/theSun.png");
 			sixDirectionMove=function(x, y, z)
 				{
 				var upDown = y * 52 + z * 26 + x * 26 + board.player.Banane9.y;

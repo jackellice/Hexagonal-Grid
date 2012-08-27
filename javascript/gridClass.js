@@ -24,9 +24,9 @@ var Grid = function(name, src)
 	this.background.src = src;
 	this.background.onload = function()
 		{
-		for(i = 0; i < 37; i++)
+		for(i = 0; i < 53; i++)
 			{
-			for(y = 0; y < 53; y++)
+			for(y = 0; y < 37; y++)
 				{
 				var c = 26;
 				if(i % 2 == 0)
