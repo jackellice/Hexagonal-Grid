@@ -11,23 +11,34 @@
 	</head>
 	<body>
 		<h1 align="center">Hexagonal Grid</h1>
-		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="1000" height="1110" style="border:1px solid #d3d3d3;">
+		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="1550" height="2700" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 		<script language="JavaScript">
 			board = new Grid("gameBoard", "./img/hexagonal.png");
-			board.newPlayer("Banane9", 60 * 3 + 5, 2 * 52 +5, "./img/playerRed.png");
-			board.newPlanet("Mars", 455, 265, "./img/planet.png");
+			board.newPlayer("Banane9", 30 * 3 + 5, 2 * 26 +5, "./img/playerRed.png");
+			board.newPlanet("Mars", 455, 525, "./img/planetMars.png");
+			board.newPlanet("Earth", 850, 800, "./img/planetEarth.png");
+			board.newPlanet("Venus", 600, 600, "./img/planetVenus.png");
+			board.newPlanet("Jupiter", 900, 900, "./img/planetJupiter.png");
+			board.newPlanet("Io", 550, 550, "./img/moonIo.png");
+			board.newPlanet("Ceres", 650, 650, "./img/AsteroidCeres.png");
+			board.newPlanet("Ganymede", 750, 750, "./img/moonGanymede.png");
+			board.newPlanet("Europa", 800, 800, "./img/moonEuropa.png");
+			board.newPlanet("Callisto", 400, 600, "./img/moonCallisto.png");
+			board.newPlanet("Mars", 600, 400, "./img/planetMars.png");
+			board.newPlanet("Mercury", 320, 600, "./img/planetMercury.png");
+			board.newPlanet("Sun", 500, 500, "./img/theSun.png");
 			sixDirectionMove=function(x, y, z)
 				{
-				var upDown = y * 104 + z * 52 + x * 52 + board.player.Banane9.y;
-				var leftRight = x * 90 - z * 90 + board.player.Banane9.x;
-				var A = [leftRight + 30, upDown]
-				var B = [leftRight + 90, upDown]	
-				var C = [leftRight + 120, upDown + 52]
-				var D = [leftRight, upDown + 52]
-				var E = [leftRight + 30, upDown + 104]
-				var F = [leftRight + 90, upDown + 104]
+				var upDown = y * 52 + z * 26 + x * 26 + board.player.Banane9.y;
+				var leftRight = x * 45 - z * 45 + board.player.Banane9.x;
+				var A = [leftRight + 15, upDown]
+				var B = [leftRight + 45, upDown]	
+				var C = [leftRight + 60, upDown + 26]
+				var D = [leftRight, upDown + 26]
+				var E = [leftRight + 15, upDown + 52]
+				var F = [leftRight + 45, upDown + 52]
 				var key = [event.clientX - 7 - document.body.scrollLeft, event.clientY - 80 + document.body.scrollTop];
 
 				if (getGradient(B, key) > getGradient(B, C) && getGradient(F, key)< getGradient(F, C))

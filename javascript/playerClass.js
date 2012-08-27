@@ -14,7 +14,7 @@ var Player = function(startX, startY, src, canvas2d, background)
 	this.token = new Image(); this.token.src = src;
 	this.token.onload = function()
 		{
-		canvas2d.drawImage(this, startX, startY, 120, 104);
+		canvas2d.drawImage(this, startX, startY, 60, 52);
 		};
 	this.setPos = setPos;
 	this.momentum = [0, 0, 0];
@@ -107,16 +107,16 @@ var Player = function(startX, startY, src, canvas2d, background)
 		this.momentum[0] += x;
 		this.momentum[1] += y;
 		this.momentum[2] += z;
-		var upDown = this.momentum[1] * 104 + this.momentum[2] * 52 + this.momentum[0] * 52;
-		var leftRight = this.momentum[0] * 90 - this.momentum[2] * 90;
+		var upDown = this.momentum[1] * 52 + this.momentum[2] * 26 + this.momentum[0] * 26;
+		var leftRight = this.momentum[0] * 45 - this.momentum[2] * 45;
 		if(this.y + upDown > 1000 ||this.x + leftRight > 900 || this.y + upDown < 5 || this.x + leftRight < 5)
 			{
 			console.log("you can't go there");
 			}
 		else
 			{
-			canvas2d.drawImage(background, this.x, this.y,120, 104);
-			canvas2d.drawImage(this.token, this.x + leftRight, this.y + upDown, 120, 104);
+			canvas2d.drawImage(background, this.x, this.y,60, 52);
+			canvas2d.drawImage(this.token, this.x + leftRight, this.y + upDown, 60, 52);
 			this.x += leftRight;
 			this.y += upDown;
 			}
@@ -130,9 +130,9 @@ var Player = function(startX, startY, src, canvas2d, background)
 			};
 	this.turn=function(x, y, z)
 		{
+		this.planetGravityWellTest();
 		this.planetGravityPull();
 		this.move(x, y, z);
-		this.planetGravityWellTest();
 		
 		this.crashPlanet(this.x,this.y,board.planet.Mars.coordinate.x,board.planet.Mars.coordinate.y)
 		console.log(this.planetGravityLeftRight);
