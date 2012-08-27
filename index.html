@@ -16,18 +16,18 @@
 		</canvas>
 		<script language="JavaScript">
 			board = new Grid("gameBoard", "./img/hexagonal.png");
-			board.newPlayer("Banane9", 20, 20, "./img/playerRed.png");
-			board.newPlanet("Mars", 12, 12, "./img/planetMars.png");
-			board.newPlanet("Earth", 11, 11, "./img/planetEarth.png");
-			board.newPlanet("Venus", 2, 2, "./img/planetVenus.png");
-			board.newPlanet("Jupiter", 3, 3, "./img/planetJupiter.png");
-			board.newPlanet("Io", 4, 4, "./img/moonIo.png");
+			board.newPlayer("Banane9", 11, 11, "./img/playerRed.png");
+			board.newPlanet("Mars", 8, 8, "./img/planetMars.png");
+			board.newPlanet("Earth", 10, 10, "./img/planetEarth.png");
+			board.newPlanet("Venus", 12, 12, "./img/planetVenus.png");
+			board.newPlanet("Jupiter", 4, 4, "./img/planetJupiter.png");
+			board.newPlanet("Io", 2, 2, "./img/moonIo.png");
 			board.newPlanet("Ceres", 5, 5, "./img/AsteroidCeres.png");
 			board.newPlanet("Ganymede", 6, 6, "./img/moonGanymede.png");
 			board.newPlanet("Europa", 7, 7, "./img/moonEuropa.png");
-			board.newPlanet("Callisto", 8, 8, "./img/moonCallisto.png");
-			board.newPlanet("Mercury", 9, 9, "./img/planetMercury.png");
-			board.newPlanet("Sun", 10, 10, "./img/theSun.png");
+			board.newPlanet("Callisto", 9, 9, "./img/moonCallisto.png");
+			board.newPlanet("Mercury", 13, 13, "./img/planetMercury.png");
+			board.newPlanet("Sun", 17, 40, "./img/theSun.png");
 			sixDirectionMove=function(x, y, z)
 				{
 				var upDown = y * 52 + z * 26 + x * 26 + board.player.Banane9.y;
