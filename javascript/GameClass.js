@@ -1,7 +1,3 @@
-var tokenOnload = function(name)
-		{
-		this.board.drawImage(this[name].token, this[name].x, this[name].y, 60, 52);
-		}
 var gravityWellTest = function(player)
 	{
 	var nPlanets = triplanetary.planets.length;
@@ -118,7 +114,10 @@ var newPlayer = function(name, x, y, src)
 	this[name].x = x;
 	this[name].y = y;
 	this[name].token = new Image(); this[name].token.src = src;
-	this[name].token.onload = this.tokenOnload(name);
+	this[name].token.onload = function()
+		{
+		
+		}
 	this[name].momentum = [];
 	this[name].momentum.x = 0;
 	this[name].momentum.y = 0;
@@ -149,9 +148,15 @@ var newPlanet = function(name, x, y, src)
 		c = 0;
 		}
 	this[name].x = 45 * x + 5 - 90;
+	var x = this.x;
 	this[name].y = 5 + 52 * y + this.c - 52;
+	var y = this.y;
+	var board = this.board;
 	this[name].token = new Image(); this[name].token.src = src;
-	this[name].token.onload = this.tokenOnload(name);
+	this[name].token.onload = function()
+		{
+		board.drawImage(this, x, y, 60, 52);
+		}
 	this[name].gravityFields = [];
 	this[name].gravityFields.Top = [];
 	this[name].gravityFields.TopRight = [];
@@ -159,7 +164,7 @@ var newPlanet = function(name, x, y, src)
 	this[name].gravityFields.Bottom = [];
 	this[name].gravityFields.BottomLeft = [];
 	this[name].gravityFields.TopLeft = [];
-	this.updateGravityFields(name);
+	this.updateGravityFields(name, this.board);
 	}
 var Triplanetary = function(canvasName, bgSrc)
 	{
@@ -193,5 +198,4 @@ var Triplanetary = function(canvasName, bgSrc)
 	this.turn = turn;
 	this.sixDirectionMove = sixDirectionMove;
 	this.updateGravityFields = updateGravityFields;
-	this.tokenOnload = tokenOnload;
 	}
