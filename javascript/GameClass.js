@@ -109,14 +109,23 @@ var sixDirectionMove = function(player, x, y, z)
 	}
 var newPlayer = function(name, x, y, src)
 	{
+	console.log("New Player: "+name+" at ("+x+"/"+y+")");
 	this[name] = [];
 	this.players[this.players.length] = name;
+	var c = 26;
+	if(x % 2 === 0)
+		{
+		c = 0;
+		}
 	this[name].x = x;
+	var x = 45 * x + 5 - 90;
 	this[name].y = y;
+	var y = 5 + 52 * y + c - 52;
+	var board = this.board;
 	this[name].token = new Image(); this[name].token.src = src;
 	this[name].token.onload = function()
 		{
-		
+		board.drawImage(this, x, y, 60, 52);
 		}
 	this[name].momentum = [];
 	this[name].momentum.x = 0;
@@ -140,6 +149,7 @@ var updateGravityFields = function(planet)
 	}	
 var newPlanet = function(name, x, y, src)
 	{
+	console.log("New Planet: "+name+" at ("+x+"/"+y+")");
 	this[name] = [];
 	this.planets[this.planets.length] = name;
 	var c = 26;
@@ -148,9 +158,9 @@ var newPlanet = function(name, x, y, src)
 		c = 0;
 		}
 	this[name].x = 45 * x + 5 - 90;
-	var x = this.x;
-	this[name].y = 5 + 52 * y + this.c - 52;
-	var y = this.y;
+	var x = this[name].x;
+	this[name].y = 5 + 52 * y + c - 52;
+	var y = this[name].y;
 	var board = this.board;
 	this[name].token = new Image(); this[name].token.src = src;
 	this[name].token.onload = function()
