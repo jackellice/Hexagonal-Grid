@@ -6,33 +6,33 @@ var gravityWellTest = function(player)
 		var planet = this.planets[i];
 		if(this[planet].gravityFields.Top.x === this[player].x && this[planet].gravityFields.Top.y === this[player].y)
 			{
-			this[player].y += 1;
+			this[player].momentum.y += 1;
 			console.log("Top gravity field engaged.");
 			}
 		else if(this[planet].gravityFields.TopRight.x === this[player].x && this[planet].gravityFields.TopRight.y === this[player].y)
 			{
-			this[player].z += 1;
-			console.log("test");
+			this[player].momentum.z += 1;
+			console.log("Top-Right gravity field engaged");
 			}
 		else if(this[planet].gravityFields.TopLeft.x === this[player].x && this[planet].gravityFields.TopLeft.y === this[player].y)
 			{
-			this[player].x += 1;
-			console.log("test");
+			this[player].momentum.x += 1;
+			console.log("Top-Left gravity field engaged");
 			}
 		else if(this[planet].gravityFields.Bottom.x === this[player].x && this[planet].gravityFields.Bottom.y === this[player].y)
 			{
-			this[player].y -= 1;
-			console.log("test");
+			this[player].momentum.y -= 1;
+			console.log("Bottom gravity field engaged");
 			}
 		else if(this[planet].gravityFields.BottomRight.x === this[player].x && this[planet].gravityFields.BottomRight.y === this[player].y)
 			{
-			this[player].x -= 1
-			console.log("test");
+			this[player].momentum.x -= 1
+			console.log("Bottom-Right gravity field engaged");
 			}
 		else if(this[planet].gravityFields.BottomLeft.x === this[player].x && this[planet].gravityFields.BottomLeft.y === this[player].y)
 			{
-			this[player].z -= 1
-			console.log("test");
+			this[player].momentum.z -= 1
+			console.log("Bottom-Left gravity field engaged");
 			}
 		}
 	}
@@ -140,14 +140,14 @@ var updateGravityFields = function(planet)
 	this[planet].gravityFields.Top.y = this[planet].y - 52;
 	this[planet].gravityFields.TopRight.x = this[planet].x + 45;
 	this[planet].gravityFields.TopRight.y = this[planet].y - 26;
-	this[planet].gravityFields.BottomRight = this[planet].x + 45;
-	this[planet].gravityFields.BottomRight = this[planet].y + 26;
-	this[planet].gravityFields.Bottom = this[planet].x;
-	this[planet].gravityFields.Bottom = this[planet].y + 52;
-	this[planet].gravityFields.BottomLeft = this[planet].x - 45;
-	this[planet].gravityFields.BottomLeft = this[planet].y + 26;
-	this[planet].gravityFields.TopLeft = this[planet].x - 45;
-	this[planet].gravityFields.TopLeft = this[planet].y - 26;
+	this[planet].gravityFields.BottomRight.x = this[planet].x + 45;
+	this[planet].gravityFields.BottomRight.y = this[planet].y + 26;
+	this[planet].gravityFields.Bottom.x = this[planet].x;
+	this[planet].gravityFields.Bottom.y = this[planet].y + 52;
+	this[planet].gravityFields.BottomLeft.x = this[planet].x - 45;
+	this[planet].gravityFields.BottomLeft.y = this[planet].y + 26;
+	this[planet].gravityFields.TopLeft.x = this[planet].x - 45;
+	this[planet].gravityFields.TopLeft.y = this[planet].y - 26;
 	}	
 var newPlanet = function(name, x, y, src)
 	{
