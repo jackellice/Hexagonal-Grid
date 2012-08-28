@@ -1,9 +1,9 @@
 var gravityWellTest = function(player)
 	{
-	var nPlanets = triplanetary.planets.length;
+	var nPlanets = this.planets.length;
 	for(i = 0; i < nPlanets; i++)
 		{
-		var planet = triplanetary.planets[i];
+		var planet = this.planets[i];
 		if(this[planet].gravityFields.Top.x === this[player].x && this[planet].gravityFields.Top.y === this[player].y)
 			{
 			this[player].y += 1;
@@ -49,7 +49,7 @@ var move = function(player, x, y, z)
 		}
 	else
 		{
-		this.board.drawImage(background, this[player].x, this[player].y, 60, 52);
+		this.board.drawImage(this.background, this[player].x, this[player].y, 60, 52);
 		this[player].x += leftRight;
 		this[player].y += upDown;
 		this.board.drawImage(this[player].token, this[player].x, this[player].y, 60, 52);
@@ -57,7 +57,7 @@ var move = function(player, x, y, z)
 	}
 var crashPlanet = function(player, planet)
 	{
-	if(this[player].x === this[planet].x && this[player].y === this[name].y)
+	if(this[player].x === this[planet].x && this[player].y === this[planet].y)
 		{
 		console.log("You've Crashed! Game over");
 		}
@@ -66,11 +66,13 @@ var turn = function(player, x, y, z)
 	{
 	this.gravityWellTest(player);
 	this.move(player, x, y, z);
-	for (planet in this.planets)
+	var nPlanets = this.planets.length;
+	for (i = 0; i < nPlanets; i++)
 		{
+		var planet = this.planets[i];
 		this.crashPlanet(player, planet);
 		}
-	console.log(this[player].momentum);
+	console.log("Player "+player+" momentum: "+this[player].momentum.x+", "+this[player].momentum.y+", "+this[player].momentum.z);
 	}
 var sixDirectionMove = function(player, x, y, z)
 	{
@@ -117,10 +119,10 @@ var newPlayer = function(name, x, y, src)
 		{
 		c = 0;
 		}
-	this[name].x = x;
-	var x = 45 * x + 5 - 90;
-	this[name].y = y;
-	var y = 5 + 52 * y + c - 52;
+	this[name].x = 45 * x + 5 - 90;
+	var x = this[name].x;
+	this[name].y = 5 + 52 * y + c - 52;
+	var y = this[name].y;
 	var board = this.board;
 	this[name].token = new Image(); this[name].token.src = src;
 	this[name].token.onload = function()
