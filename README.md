@@ -13,17 +13,17 @@ This game will have:
 	7. Spacecraft building
 	8. Interplantary Trade
 	9. Enemy AI
-	10. Gravity Wells (direction change and orbiting)
+	10. Gravity Wells (direction change, orbiting)(weak and strong)
 	11. Asteroid mining base
 	12. Moon Base
 	13. Scenarios
 	14. Game Menu
 	15. Save Feature
-	16. Collisions
+	16. Collisions (space craft to space craft, planet to space craft)
 	
 Added so far:
 
-	1. Gravity Wells (orbiting)
+	1. Gravity Wells (orbiting and direction change)
 	2. Newtonian Space Travel
 	3. Mouse controls
 	4. Turn Based Movement
