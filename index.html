@@ -2,87 +2,77 @@
 <html>
 	<head>
 		<title>Hexagonal Grid</title>
-		<script src="./javascript/playerClass.js" language="JavaScript"></script>
-		<script src="./javascript/planetClass.js" language="JavaScript"></script>
-		<script src="./javascript/gridClass.js" language="JavaScript"></script>
-			
-		</script>
+		<script src="./javascript/GameClass.js" language="JavaScript"></script>
 	</head>
 	<body>
 		<h1 align="center">Hexagonal Grid</h1>
-		<canvas onmouseup="keyEvent(event)"  id="gameBoard" width="2300" height="1860" style="border:1px solid #d3d3d3;">
+		<canvas onmouseup="keyEvent(event)"  id="gametriplanetary" width="2300" height="1860" style="border:1px solid #d3d3d3;">
 			Your browser does not support the HTML5 canvas tag.
 		</canvas>
 		<script language="JavaScript">
-			board = new Grid("gameBoard", "./img/hexagonal.png");
-			board.newPlanet("Sun", 40, 20, "./img/theSun.png");
-			board.newPlanet("Mercury", 43, 17, "./img/planetMercury.png");
-			board.newPlanet("Venus", 44, 26, "./img/planetVenus.png");
-			board.newPlanet("Earth", 34, 10, "./img/planetEarth.png");
-			board.newPlanet("Moon", 33, 7, "./img/moonLuna.png");
-			board.newPlayer("Banane9", 33, 10, "./img/playerGreen.png");
-			board.newPlanet("Mars", 25, 28, "./img/planetMars.png");
-			board.newPlanet("Ceres", 13, 25, "./img/asteroidCeres.png");
-			board.newPlanet("Jupiter", 4, 19, "./img/planetJupiter.png");
-			board.newPlanet("Io", 6, 18, "./img/moonIo.png");
-			board.newPlanet("Europa", 7, 23, "./img/moonEuropa.png");
-			board.newPlanet("Ganymede", 2, 16, "./img/moonGanymede.png");
-			board.newPlanet("Callisto", 4, 29, "./img/moonCallisto.png");
-			board.newPlayer("Jackellice", 6, 17, "./img/playerBlue.png");
-			
-			
-				
-			var getGradient = function(b, a)
-				{
-					yMinus =  (b[1] - a[1]);
-					xMinus = (b[0] - a[0]);
-					gradient =yMinus / xMinus;
-					return gradient;
-				};
+			triplanetary = new Triplanetary("gametriplanetary", "./img/hexagonal.png");
+			triplanetary.newPlayer("Banane9", 33, 10, "./img/playerGreen.png");
+			triplanetary.newPlayer("Jackellice", 6, 17, "./img/playerBlue.png");
+			triplanetary.newPlanet("Sun", 40, 20, "./img/theSun.png");
+			triplanetary.newPlanet("Mercury", 43, 17, "./img/planetMercury.png");
+			triplanetary.newPlanet("Venus", 44, 26, "./img/planetVenus.png");
+			triplanetary.newPlanet("Earth", 34, 10, "./img/planetEarth.png");
+			triplanetary.newPlanet("Moon", 33, 7, "./img/moonLuna.png");
+			triplanetary.newPlanet("Mars", 25, 28, "./img/planetMars.png");
+			triplanetary.newPlanet("Ceres", 13, 25, "./img/asteroidCeres.png");
+			triplanetary.newPlanet("Jupiter", 4, 19, "./img/planetJupiter.png");
+			triplanetary.newPlanet("Io", 6, 18, "./img/moonIo.png");
+			triplanetary.newPlanet("Europa", 7, 23, "./img/moonEuropa.png");
+			triplanetary.newPlanet("Ganymede", 2, 16, "./img/moonGanymede.png");
+			triplanetary.newPlanet("Callisto", 4, 29, "./img/moonCallisto.png");
 			function keyEvent(event)
 				{
-				for (var indigo in board.player){
-				if(board.player[indigo].sixDirectionMove(1, 0, 0)===true)
+				var nPlayers = triplanetary.players.length;
+				for(i = 0; i < nPlayers; i++)
 					{
-					console.log("down right")
-					board.player[indigo].turn(1, 0, 0)
+					var player = triplanetary.players[i];
+					console.log(player);
+					if(triplanetary.sixDirectionMove(player, 1, 0, 0) === true)
+						{
+						console.log("down right");
+						triplanetary.turn(player, 1, 0, 0);
+						}
+					 else if(triplanetary.sixDirectionMove(player, 0, 0, 0) === true)
+						{
+						triplanetary.turn(player, 0, 0, 0);
+						console.log("center");
+						}
+					else if(triplanetary.sixDirectionMove(player, 0, 1, 0) === true)
+						{
+						triplanetary.turn(player, 0, 1, 0);
+						console.log("down");
+						}
+					else if(triplanetary.sixDirectionMove(player, 0, 0, 1) === true)
+						{
+						triplanetary.turn(player, 0, 0, 1);
+						console.log("down left");
+						}
+					else if(triplanetary.sixDirectionMove(player, -1, 0, 0) === true)
+						{
+						triplanetary.turn(player, -1, 0, 0);
+						console.log("up left");
+						}
+					else if(triplanetary.sixDirectionMove(player, 0, -1, 0) === true)
+						{
+						triplanetary.turn(player, 0, -1, 0);
+						console.log("up");
+						}
+					else if(triplanetary.sixDirectionMove(player, 0, 0, -1) === true)
+						{
+						triplanetary.turn(player, 0, 0, -1);
+						console.log("up right");
+						}
+					else
+						{
+						console.log("total miss")
+						}
 					}
-				 else if(board.player[indigo].sixDirectionMove(0, 0, 0)===true)
-			    	{
-			    	board.player[indigo].turn(0, 0, 0)
-					console.log("center")
-					}
-			    else if(board.player[indigo].sixDirectionMove(0, 1, 0)===true)
-			    	{
-			    	board.player[indigo].turn(0, 1, 0)
-					console.log("down")
-					}
-				else if(board.player[indigo].sixDirectionMove(0, 0, 1)===true)
-			    	{
-			    	board.player[indigo].turn(0, 0, 1)
-					console.log("down left")
-					}
-				else if(board.player[indigo].sixDirectionMove(-1, 0, 0)===true)
-			    	{
-			    	board.player[indigo].turn(-1, 0, 0)
-					console.log("up left")
-					}
-				else if(board.player[indigo].sixDirectionMove(0, -1, 0)===true)
-			    	{
-			    	board.player[indigo].turn(0, -1, 0)
-					console.log("up")
-					}
-				else if(board.player[indigo].sixDirectionMove(0, 0, -1)===true)
-			    	{
-			    	board.player[indigo].turn(0, 0, -1)
-					console.log("up right")
-					}
-				else
-					{
-					console.log("total miss")
-					}
-					}
-				};
+				}
 		</script>
 	</body>
 </html>

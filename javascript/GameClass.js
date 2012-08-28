@@ -1,7 +1,13 @@
-var GravityWellTest = function(player)
-	{
-	for (planet in this.planets)
+var tokenOnload = function(name)
 		{
+		this.board.drawImage(this[name].token, this[name].x, this[name].y, 60, 52);
+		}
+var gravityWellTest = function(player)
+	{
+	var nPlanets = triplanetary.planets.length;
+	for(i = 0; i < nPlanets; i++)
+		{
+		var planet = triplanetary.planets[i];
 		if(this[planet].gravityFields.Top.x === this[player].x && this[planet].gravityFields.Top.y === this[player].y)
 			{
 			this[player].y += 1;
@@ -76,7 +82,7 @@ var sixDirectionMove = function(player, x, y, z)
 		{
 		xMinus = (b[0] - a[0]);
 		yMinus =  (b[1] - a[1]);
-		gradient =yMinus / xMinus;
+		gradient = yMinus / xMinus;
 		return gradient;
 		}
 	var upDown = y * 52 + z * 26 + x * 26 + this[player].y;
@@ -105,30 +111,57 @@ var sixDirectionMove = function(player, x, y, z)
 		return false;
 		}
 	}
-var newPlayer = function(name, startX, startY, src)
+var newPlayer = function(name, x, y, src)
 	{
 	this[name] = [];
-	this[name].name = name;
 	this.players[this.players.length] = name;
-	this[name].x = startX;
-	this[name].y = startY;
+	this[name].x = x;
+	this[name].y = y;
 	this[name].token = new Image(); this[name].token.src = src;
+	this[name].token.onload = this.tokenOnload(name);
 	this[name].momentum = [];
 	this[name].momentum.x = 0;
 	this[name].momentum.y = 0;
-	this[name].momentum.z = 0;	
+	this[name].momentum.z = 0;
+	}
+var updateGravityFields = function(planet)
+	{
+	this[planet].gravityFields.Top.x = this[planet].x;
+	this[planet].gravityFields.Top.y = this[planet].y - 52;
+	this[planet].gravityFields.TopRight.x = this[planet].x + 45;
+	this[planet].gravityFields.TopRight.y = this[planet].y - 26;
+	this[planet].gravityFields.BottomRight = this[planet].x + 45;
+	this[planet].gravityFields.BottomRight = this[planet].y + 26;
+	this[planet].gravityFields.Bottom = this[planet].x;
+	this[planet].gravityFields.Bottom = this[planet].y + 52;
+	this[planet].gravityFields.BottomLeft = this[planet].x - 45;
+	this[planet].gravityFields.BottomLeft = this[planet].y + 26;
+	this[planet].gravityFields.TopLeft = this[planet].x - 45;
+	this[planet].gravityFields.TopLeft = this[planet].y - 26;
 	}	
 var newPlanet = function(name, x, y, src)
 	{
 	this[name] = [];
-	this[name].name = name;
-	this[name].x = x;
-	this[name].y = y;
-	this[name].token = new Image(); this[name].token.src = src;
-	this[name].updateGravityFields();
 	this.planets[this.planets.length] = name;
+	var c = 26;
+	if(x % 2 === 0)
+		{
+		c = 0;
+		}
+	this[name].x = 45 * x + 5 - 90;
+	this[name].y = 5 + 52 * y + this.c - 52;
+	this[name].token = new Image(); this[name].token.src = src;
+	this[name].token.onload = this.tokenOnload(name);
+	this[name].gravityFields = [];
+	this[name].gravityFields.Top = [];
+	this[name].gravityFields.TopRight = [];
+	this[name].gravityFields.BottomRight = [];
+	this[name].gravityFields.Bottom = [];
+	this[name].gravityFields.BottomLeft = [];
+	this[name].gravityFields.TopLeft = [];
+	this.updateGravityFields(name);
 	}
-var Game = function(canvasName, bgSrc)
+var Triplanetary = function(canvasName, bgSrc)
 	{
 	this.canvas = document.getElementById(canvasName);
 	this.board = this.canvas.getContext("2d");
@@ -159,4 +192,6 @@ var Game = function(canvasName, bgSrc)
 	this.crashPlanet = crashPlanet;
 	this.turn = turn;
 	this.sixDirectionMove = sixDirectionMove;
+	this.updateGravityFields = updateGravityFields;
+	this.tokenOnload = tokenOnload;
 	}
