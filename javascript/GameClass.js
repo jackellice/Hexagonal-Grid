@@ -38,12 +38,14 @@ var gravityWellTest = function(player)
 	}
 var move = function(player, x, y, z)
 	{
+	this[player].oldXY[0] = this[player].x;
+	this[player].oldXY[1] = this[player].y;
 	this[player].momentum.x += x;
 	this[player].momentum.y += y;
 	this[player].momentum.z += z;
 	var upDown = this[player].momentum.y * 52 + this[player].momentum.z * 26 + this[player].momentum.x * 26;
 	var leftRight = this[player].momentum.x * 45 - this[player].momentum.z * 45;
-	if(this[player].y + upDown > 2280 ||this[player].x + leftRight > 1850 || this[player].y + upDown < 5 || this[player].x + leftRight < 5)
+	if(this[player].y + upDown > 1850 ||this[player].x + leftRight > 2250 || this[player].y + upDown < 5 || this[player].x + leftRight < 5)
 		{
 		console.log("you can't go there");
 		}
@@ -70,7 +72,7 @@ var turn = function(player, x, y, z)
 	for (i = 0; i < nPlanets; i++)
 		{
 		var planet = this.planets[i];
-		this.crashPlanet(player, planet);
+		collision(player, planet);
 		}
 	console.log("Player "+player+" momentum: "+this[player].momentum.x+", "+this[player].momentum.y+", "+this[player].momentum.z);
 	}
@@ -123,6 +125,7 @@ var newPlayer = function(name, x, y, src)
 	var x = this[name].x;
 	this[name].y = 5 + 52 * y + c - 52;
 	var y = this[name].y;
+	this[name].oldXY = [];
 	var board = this.board;
 	this[name].token = new Image(); this[name].token.src = src;
 	this[name].token.onload = function()
